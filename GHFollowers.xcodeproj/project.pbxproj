@@ -32,6 +32,8 @@
 		F4D2D0A32BF0431A00D1D7A1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D2D0A22BF0431A00D1D7A1 /* User.swift */; };
 		F4D576DA2BF85B84004383E1 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D576D92BF85B83004383E1 /* FollowerCell.swift */; };
 		F4D576DC2BF8B8A8004383E1 /* GFAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D576DB2BF8B8A8004383E1 /* GFAvatarImageView.swift */; };
+		F4F94E2E2C57D81C000B80E4 /* GFItemInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F94E2D2C57D81C000B80E4 /* GFItemInfoView.swift */; };
+		F4F94E302C57DC1C000B80E4 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F94E2F2C57DC1C000B80E4 /* constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		F4D2D0A22BF0431A00D1D7A1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F4D576D92BF85B83004383E1 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		F4D576DB2BF8B8A8004383E1 /* GFAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFAvatarImageView.swift; sourceTree = "<group>"; };
+		F4F94E2D2C57D81C000B80E4 /* GFItemInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFItemInfoView.swift; sourceTree = "<group>"; };
+		F4F94E2F2C57DC1C000B80E4 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 			children = (
 				F49403942BEED27400F56DF7 /* GFContainerView.swift */,
 				F403D66E2C2FAACC00BC693D /* GFEmptyStateView.swift */,
+				F4F94E2D2C57D81C000B80E4 /* GFItemInfoView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 			children = (
 				F4C16D812BF48A6200C7DD75 /* GFError.swift */,
 				F45A8F9C2C0DB48600796BF4 /* UIHelper.swift */,
+				F4F94E2F2C57DC1C000B80E4 /* constants.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -308,6 +314,7 @@
 				F46CAECB2C46BB2D0014CE0B /* GFSecondaryTitleLabel.swift in Sources */,
 				F43509482BE844C4006452F3 /* GFAlertVC.swift in Sources */,
 				F43509462BE83043006452F3 /* GFBodyLabel.swift in Sources */,
+				F4F94E2E2C57D81C000B80E4 /* GFItemInfoView.swift in Sources */,
 				F4D576DA2BF85B84004383E1 /* FollowerCell.swift in Sources */,
 				F4D2D0A32BF0431A00D1D7A1 /* User.swift in Sources */,
 				F43509442BE8102F006452F3 /* GFTitleLabel.swift in Sources */,
@@ -320,6 +327,7 @@
 				F45A8F9D2C0DB48600796BF4 /* UIHelper.swift in Sources */,
 				F47F396D2BE1300800E7DB95 /* SceneDelegate.swift in Sources */,
 				F49403952BEED27400F56DF7 /* GFContainerView.swift in Sources */,
+				F4F94E302C57DC1C000B80E4 /* constants.swift in Sources */,
 				F4D576DC2BF8B8A8004383E1 /* GFAvatarImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
