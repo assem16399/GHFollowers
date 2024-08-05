@@ -42,16 +42,6 @@ class GFUserInfoHeaderVC: UIViewController {
     }
     
     
-    func configureUIElements() {
-        avatarImageView.downloadImage(from: user.avatarUrl)
-        userNameLabel.text = user.login
-        nameLabel.text = user.name
-        locationLabel.text = user.location ?? "No Location"
-        bioLabel.text = user.bio
-        bioLabel.numberOfLines = 3
-        locationImageView.image = UIImage(systemName: Constants.location)
-        locationLabel.tintColor = .secondaryLabel
-    }
     
     private func addSubviews() {
         view.addSubview(avatarImageView)
@@ -101,4 +91,16 @@ class GFUserInfoHeaderVC: UIViewController {
             bioLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
+    
+    private func configureUIElements() {
+        avatarImageView.downloadImage(from: user.avatarUrl)
+        userNameLabel.text = user.login
+        nameLabel.text = user.name
+        locationLabel.text = user.location ?? "No Location"
+        bioLabel.text = user.bio
+        bioLabel.numberOfLines = 3
+        locationImageView.image = UIImage(systemName: Constants.location)
+        locationLabel.tintColor = .secondaryLabel
+    }
+
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 enum Constants{
-    static let location = "mappin.and.elliose"
+    static let location = "mappin.and.ellipse"
     static let folderIcon = "folder"
     static let textAlignLeftIcon = "text.alignleft"
     static let heartIcon = "heart"

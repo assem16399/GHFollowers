@@ -36,17 +36,22 @@ class UserInfoVC: UIViewController {
     }
     
     private func getUserInfo(){
+        self.showLoadingView()
         networkManager.getUserInfo(for: userName){ [weak self] result in
             guard let self else{ return }
-            
             switch result {
             case .success(let user):
                 DispatchQueue.main.async {
                     self.add(GFUserInfoHeaderVC(networkManager: self.networkManager, user: user), to: self.headerView)
+                    self.add(GFRepoItemVC(user: user), to: self.itemViewOne)
+                    self.add(GFFollowerItemVC(user: user), to: self.itemViewTwo)
                 }
             case .failure(let error):
                 self.presentGFAlertVCOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
+            
+            self.dismissLoadingView()
+
         }
     }
     
@@ -67,8 +72,6 @@ extension UserInfoVC{
         view.addSubview(itemViewOne)
         view.addSubview(itemViewTwo)
         
-        itemViewOne.backgroundColor = .systemRed
-        itemViewTwo.backgroundColor = .systemRed
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
         itemViewOne.translatesAutoresizingMaskIntoConstraints = false

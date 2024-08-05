@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 class GFItemInfoView: UIView {
     
     let iconImageView = UIImageView()
