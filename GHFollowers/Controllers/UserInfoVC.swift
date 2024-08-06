@@ -69,6 +69,7 @@ extension UserInfoVC{
     }
     
     private func layoutViews() {
+    
         view.addSubview(headerView)
         view.addSubview(itemViewOne)
         view.addSubview(itemViewTwo)
@@ -80,24 +81,24 @@ extension UserInfoVC{
         itemViewTwo.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        
+        let padding: CGFloat = 20
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 180),
             
-            itemViewOne.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 20),
-            itemViewOne.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            itemViewOne.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+            itemViewOne.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
+            itemViewOne.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
+            itemViewOne.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -padding),
             itemViewOne.heightAnchor.constraint(equalToConstant: 140),
             
-            itemViewTwo.topAnchor.constraint(equalTo: itemViewOne.bottomAnchor, constant: 20),
+            itemViewTwo.topAnchor.constraint(equalTo: itemViewOne.bottomAnchor, constant: padding),
             itemViewTwo.leadingAnchor.constraint(equalTo: itemViewOne.leadingAnchor),
             itemViewTwo.trailingAnchor.constraint(equalTo: itemViewOne.trailingAnchor),
             itemViewTwo.heightAnchor.constraint(equalToConstant: 140),
             
-            dateLabel.topAnchor.constraint(equalTo: itemViewTwo.bottomAnchor, constant: 20),
+            dateLabel.topAnchor.constraint(equalTo: itemViewTwo.bottomAnchor, constant: padding),
             dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             dateLabel.widthAnchor.constraint(equalTo: itemViewTwo.widthAnchor),
             dateLabel.heightAnchor.constraint(equalToConstant: 18)
