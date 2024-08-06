@@ -16,7 +16,7 @@ class UserInfoVC: UIViewController {
     let headerView = UIView()
     let itemViewOne = UIView()
     let itemViewTwo = UIView()
-        
+    let dateLabel = GFBodyLabel(textAlignment: .center)
     
     init(userName: String!, networkManager: NetworkManager) {
         self.userName = userName
@@ -45,6 +45,7 @@ class UserInfoVC: UIViewController {
                     self.add(GFUserInfoHeaderVC(networkManager: self.networkManager, user: user), to: self.headerView)
                     self.add(GFRepoItemVC(user: user), to: self.itemViewOne)
                     self.add(GFFollowerItemVC(user: user), to: self.itemViewTwo)
+                    self.dateLabel.text = "GitHub since \(user.createdAt.convertToDisplayFormate)"
                 }
             case .failure(let error):
                 self.presentGFAlertVCOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
@@ -71,11 +72,13 @@ extension UserInfoVC{
         view.addSubview(headerView)
         view.addSubview(itemViewOne)
         view.addSubview(itemViewTwo)
+        view.addSubview(dateLabel)
         
         
         headerView.translatesAutoresizingMaskIntoConstraints = false
         itemViewOne.translatesAutoresizingMaskIntoConstraints = false
         itemViewTwo.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
         
         NSLayoutConstraint.activate([
@@ -94,6 +97,10 @@ extension UserInfoVC{
             itemViewTwo.trailingAnchor.constraint(equalTo: itemViewOne.trailingAnchor),
             itemViewTwo.heightAnchor.constraint(equalToConstant: 140),
             
+            dateLabel.topAnchor.constraint(equalTo: itemViewTwo.bottomAnchor, constant: 20),
+            dateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            dateLabel.widthAnchor.constraint(equalTo: itemViewTwo.widthAnchor),
+            dateLabel.heightAnchor.constraint(equalToConstant: 18)
         ])
     }
     
@@ -109,3 +116,4 @@ extension UserInfoVC{
     }
 
 }
+
