@@ -17,11 +17,12 @@ class GFFollowerItemVC: GFItemInfoVC{
     func configureUIElementsData() {
         itemInfoViewOne.setData(title: "Followers", count: user.followers, icon: Constants.heartIcon)
         itemInfoViewTwo.setData(title: "Following", count: user.following, icon: Constants.personsIcon)
-        actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
         actionButton.setTitle("Get Followers", for: .normal)
         actionButton.backgroundColor = .systemGreen
     }
     
-    @objc func actionButtonPressed(){}
+    override func actionButtonPressed(){
+        delegate?.didTapGetFollowers(self, for: user)
+    }
 }
 

@@ -11,7 +11,7 @@ class FollowersListVC: UIViewController {
 
     enum Section { case main }
     
-    let username: String!
+    var username: String!
     let networkManager: NetworkManager!
     var followers = [Follower]()
     var filteredFollowers = [Follower]()
@@ -45,6 +45,7 @@ class FollowersListVC: UIViewController {
     }
     
     private func configureViewController() {
+        title = username
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -129,6 +130,7 @@ extension FollowersListVC: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let follower = isSearching ? filteredFollowers[indexPath.item] : followers[indexPath.item]
         let userInfoVc = UserInfoVC(userName: follower.login, networkManager: NetworkManagerImpl())
+        userInfoVc.delegate = self
         let navController = UINavigationController(rootViewController: userInfoVc)
         
         // presents the UIViewController Modally
@@ -156,4 +158,19 @@ extension FollowersListVC: UISearchResultsUpdating, UISearchBarDelegate{
         updateData(with: followers)
     }
 
+}
+
+
+extension FollowersListVC: UserInfoVCDelegate{
+    
+    func didTapGetFollowers(_ userInfoVC: UserInfoVC, for username: String) {
+        self.username = username
+        title = username
+        page = 1
+        followers.removeAll()
+        filteredFollowers.removeAll()
+        collectionView.setContentOffset(.zero, animated: true)
+        getFollowers()
+    }
+    
 }

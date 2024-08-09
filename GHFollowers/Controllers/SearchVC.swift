@@ -47,7 +47,6 @@ class SearchVC: UIViewController {
         }
         
         let followersListVc = FollowersListVC(username: usernameTextField.text, networkManager: NetworkManagerImpl())
-        followersListVc.title = usernameTextField.text
         navigationController?.pushViewController(followersListVc, animated: true)
     }
     

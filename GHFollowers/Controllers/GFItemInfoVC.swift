@@ -7,6 +7,13 @@
 
 import UIKit
 
+protocol GFItemInfoVCDelegate: AnyObject{
+    func didTapGetFollowers(_ gfItemInfoVc: GFItemInfoVC, for user: User)
+    
+    func didTapGitHubProfile(_ gfItemInfoVC: GFItemInfoVC, for user: User)
+}
+
+
 class GFItemInfoVC: UIViewController {
     
     // MARK: - UI Elements
@@ -16,6 +23,7 @@ class GFItemInfoVC: UIViewController {
     let actionButton = GFButton()
     let user: User!
 
+    weak var delegate: GFItemInfoVCDelegate?
     
     init(user: User) {
         self.user = user
@@ -58,7 +66,7 @@ class GFItemInfoVC: UIViewController {
     private func configureStackViewItems(){
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
-        // minimum spacing between each element
+        //minimum spacing between each element
         //stackView.spacing = 100
         stackView.addArrangedSubview(itemInfoViewOne)
         stackView.addArrangedSubview(itemInfoViewTwo)
@@ -68,6 +76,8 @@ class GFItemInfoVC: UIViewController {
     private func configureActionButton(){
         view.addSubview(actionButton)
         let padding: CGFloat = 20
+        actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
+
         NSLayoutConstraint.activate([
             actionButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
             actionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -76,6 +86,7 @@ class GFItemInfoVC: UIViewController {
         ])
     }
     
-    
+    @objc func actionButtonPressed(){}
+
 
 }

@@ -17,11 +17,12 @@ class GFRepoItemVC: GFItemInfoVC{
     func configureUIElementsData() {
         itemInfoViewOne.setData(title: "Public Repos", count: user.publicRepos, icon: Constants.folderIcon)
         itemInfoViewTwo.setData(title: "Public Gists", count: user.publicGists, icon: Constants.textAlignLeftIcon)
-        actionButton.addTarget(self, action: #selector(actionButtonPressed), for: .touchUpInside)
         actionButton.setTitle("Github Profile", for: .normal)
         actionButton.backgroundColor = .systemPink
     }
     
-    @objc func actionButtonPressed(){}
+     override func actionButtonPressed(){
+         delegate?.didTapGitHubProfile(self, for: user)
+     }
 }
 

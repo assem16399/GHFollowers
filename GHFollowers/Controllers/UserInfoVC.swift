@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import SafariServices
+
+protocol UserInfoVCDelegate: AnyObject {
+    func didTapGetFollowers(_ userInfoVC: UserInfoVC, for username: String)
+}
 
 class UserInfoVC: UIViewController {
     // MARK: - Dependencies
@@ -17,6 +22,8 @@ class UserInfoVC: UIViewController {
     let itemViewOne = UIView()
     let itemViewTwo = UIView()
     let dateLabel = GFBodyLabel(textAlignment: .center)
+    
+    weak var delegate: UserInfoVCDelegate?
     
     init(userName: String!, networkManager: NetworkManager) {
         self.userName = userName
@@ -39,14 +46,10 @@ class UserInfoVC: UIViewController {
         self.showLoadingView()
         networkManager.getUserInfo(for: userName){ [weak self] result in
             guard let self else{ return }
+            
             switch result {
             case .success(let user):
-                DispatchQueue.main.async {
-                    self.add(GFUserInfoHeaderVC(networkManager: self.networkManager, user: user), to: self.headerView)
-                    self.add(GFRepoItemVC(user: user), to: self.itemViewOne)
-                    self.add(GFFollowerItemVC(user: user), to: self.itemViewTwo)
-                    self.dateLabel.text = "GitHub since \(user.createdAt.convertToDisplayFormate)"
-                }
+                DispatchQueue.main.async { self.populateUIElements(with: user) }
             case .failure(let error):
                 self.presentGFAlertVCOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
@@ -56,8 +59,44 @@ class UserInfoVC: UIViewController {
         }
     }
     
+    private func populateUIElements(with user: User){
+        let repoItemVC = GFRepoItemVC(user: user)
+        let followerItemVC = GFFollowerItemVC(user: user)
+        
+        repoItemVC.delegate = self
+        followerItemVC.delegate = self
+        
+        self.add(GFUserInfoHeaderVC(networkManager: self.networkManager, user: user), to: self.headerView)
+        self.add(repoItemVC, to: self.itemViewOne)
+        self.add(followerItemVC, to: self.itemViewTwo)
+        self.dateLabel.text = "GitHub since \(user.createdAt.convertToDisplayFormate)"
+    }
+    
 }
 
+
+extension UserInfoVC: GFItemInfoVCDelegate{
+    func didTapGetFollowers(_ gfItemInfoVc: GFItemInfoVC, for user: User) {
+        
+        guard user.followers != 0 else {
+            presentGFAlertVCOnMainThread(title: "No Followers", message: "This user has no followers. What a shame 😟", buttonTitle: "So sad")
+            return
+        }
+        
+        delegate?.didTapGetFollowers(self, for: user.login)
+        dismissVC()
+    }
+    
+    func didTapGitHubProfile(_ gfItemInfoVC: GFItemInfoVC, for user: User) {
+        guard let url = URL(string: user.htmlUrl) else { 
+            presentGFAlertVCOnMainThread(title: "Invalid URL", message: "The url attached to this user is invalid.",
+                                         buttonTitle: "Ok")
+            return
+        }
+        
+        presentSafariVC(with: url)
+    }
+}
 
 // MARK: - Configure UI Elements
 extension UserInfoVC{
@@ -117,4 +156,5 @@ extension UserInfoVC{
     }
 
 }
+
 
