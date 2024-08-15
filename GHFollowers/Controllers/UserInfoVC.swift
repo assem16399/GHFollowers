@@ -46,7 +46,7 @@ class UserInfoVC: UIViewController {
         self.showLoadingView()
         networkManager.getUserInfo(for: userName){ [weak self] result in
             guard let self else{ return }
-            
+            self.dismissLoadingView()
             switch result {
             case .success(let user):
                 DispatchQueue.main.async { self.populateUIElements(with: user) }
@@ -54,7 +54,6 @@ class UserInfoVC: UIViewController {
                 self.presentGFAlertVCOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
             
-            self.dismissLoadingView()
 
         }
     }

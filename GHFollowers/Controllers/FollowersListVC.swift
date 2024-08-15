@@ -48,6 +48,28 @@ class FollowersListVC: UIViewController {
         title = username
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addToFavorites))
+    }
+    
+    @objc private func addToFavorites(){
+        self.showLoadingView()
+        networkManager.getUserInfo(for: username) { [weak self] result in
+            guard let self else { return }
+            self.dismissLoadingView()
+            switch result {
+            case .success(let user):
+                UserDefaultsManger.updateFavoritesAfterAdding(Follower(login: user.login, avatarUrl: user.avatarUrl)) { [weak self] error in
+                    guard let self else { return }
+                    if let error  {
+                        self.presentGFAlertVCOnMainThread(title: "Something went wrong!", message: error.rawValue, buttonTitle: "Ok")
+                        return
+                    }
+                    self.presentGFAlertVCOnMainThread(title: "Success!", message: "User added successfully to favorites🥳", buttonTitle: "Ok")
+                }
+            case .failure(let error):
+                self.presentGFAlertVCOnMainThread(title: "Something went wrong!", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
     }
     
     private func configureSearchController(){
@@ -98,7 +120,6 @@ class FollowersListVC: UIViewController {
                     DispatchQueue.main.async {
                         self.showEmptyStateView(with: "User does not have any followers!")
                     }
-                
                     return
                 }
                 self.updateData(with: self.followers)
