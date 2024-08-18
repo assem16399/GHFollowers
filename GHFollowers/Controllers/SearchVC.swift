@@ -28,13 +28,14 @@ class SearchVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //navigationController?.isNavigationBarHidden = true
+        usernameTextField.text = ""
         navigationController?.setNavigationBarHidden(true, animated: true)
 
     }
     
     
     func createDismissKeyboardTapGesture() {
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         view.addGestureRecognizer(tap)
     }
     
@@ -85,8 +86,8 @@ class SearchVC: UIViewController {
             callToActionButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
             callToActionButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             callToActionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            //            callToActionButton.widthAnchor.constraint(equalTo: usernameTextField.widthAnchor, multiplier: 1),
-            //            callToActionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            //callToActionButton.widthAnchor.constraint(equalTo: usernameTextField.widthAnchor, multiplier: 1),
+            //callToActionButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             callToActionButton.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
@@ -97,6 +98,7 @@ class SearchVC: UIViewController {
 extension SearchVC: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("Return Key Pressed")
+        textField.resignFirstResponder()
         pushFollowersListVC()
         return true
     }
