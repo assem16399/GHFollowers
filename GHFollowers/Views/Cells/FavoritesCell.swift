@@ -11,7 +11,7 @@ class FavoritesCell: UITableViewCell {
     
     static let reuseId = "FavoritesCell"
     
-    let avatarImageView: GFAvatarImageView = GFAvatarImageView(networkManager: NetworkManagerImpl())
+    let avatarImageView: GFAvatarImageView = GFAvatarImageView()
     let usernameLabel: GFTitleLabel = GFTitleLabel(textAlignment: .left, fontSize: 26)
     
     
@@ -26,7 +26,9 @@ class FavoritesCell: UITableViewCell {
     
     func set(favorite: Follower) {
         usernameLabel.text = favorite.login
-        avatarImageView.downloadImage(from: favorite.avatarUrl)
+        NetworkManagerImpl().downloadImage(from: favorite.avatarUrl) { [weak self] image in
+            DispatchQueue.main.async { self?.avatarImageView.image = image }
+        }
     }
     
     private func configure(){

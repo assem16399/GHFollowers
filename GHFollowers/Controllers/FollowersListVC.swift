@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FollowersListVC: UIViewController {
+class FollowersListVC: GFDataLoadingVC {
 
     enum Section { case main }
     

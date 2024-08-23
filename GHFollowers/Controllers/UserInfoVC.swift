@@ -12,7 +12,7 @@ protocol UserInfoVCDelegate: AnyObject {
     func didTapGetFollowers(_ userInfoVC: UserInfoVC, for username: String)
 }
 
-class UserInfoVC: UIViewController {
+class UserInfoVC: GFDataLoadingVC {
     // MARK: - Dependencies
     let userName: String!
     let networkManager: NetworkManager

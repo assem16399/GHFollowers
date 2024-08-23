@@ -25,7 +25,7 @@ class GFUserInfoHeaderVC: UIViewController {
     init(networkManager: NetworkManager, user: User){
         self.networkManager = networkManager
         self.user = user
-        avatarImageView = GFAvatarImageView(networkManager: networkManager)
+        avatarImageView = GFAvatarImageView()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -93,7 +93,7 @@ class GFUserInfoHeaderVC: UIViewController {
     }
     
     private func configureUIElements() {
-        avatarImageView.downloadImage(from: user.avatarUrl)
+        downloadAvatarImageView()
         userNameLabel.text = user.login
         nameLabel.text = user.name
         locationLabel.text = user.location ?? "No Location"
@@ -101,6 +101,12 @@ class GFUserInfoHeaderVC: UIViewController {
         bioLabel.numberOfLines = 3
         locationImageView.image = UIImage(systemName: Constants.location)
         locationLabel.tintColor = .secondaryLabel
+    }
+    
+    private func downloadAvatarImageView(){
+        networkManager.downloadImage(from: user.avatarUrl) { [weak self] image in
+            DispatchQueue.main.async { self?.avatarImageView.image = image }
+        }
     }
 
 }
